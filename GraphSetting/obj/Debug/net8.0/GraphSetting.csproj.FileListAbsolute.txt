@@ -1,0 +1,14 @@
+C:\Users\Ivan\RiderProjects\GraphSetting\GraphSetting\bin\Debug\net8.0\GraphSetting.exe
+C:\Users\Ivan\RiderProjects\GraphSetting\GraphSetting\bin\Debug\net8.0\GraphSetting.deps.json
+C:\Users\Ivan\RiderProjects\GraphSetting\GraphSetting\bin\Debug\net8.0\GraphSetting.runtimeconfig.json
+C:\Users\Ivan\RiderProjects\GraphSetting\GraphSetting\bin\Debug\net8.0\GraphSetting.dll
+C:\Users\Ivan\RiderProjects\GraphSetting\GraphSetting\bin\Debug\net8.0\GraphSetting.pdb
+C:\Users\Ivan\RiderProjects\GraphSetting\GraphSetting\obj\Debug\net8.0\GraphSetting.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ivan\RiderProjects\GraphSetting\GraphSetting\obj\Debug\net8.0\GraphSetting.AssemblyInfoInputs.cache
+C:\Users\Ivan\RiderProjects\GraphSetting\GraphSetting\obj\Debug\net8.0\GraphSetting.AssemblyInfo.cs
+C:\Users\Ivan\RiderProjects\GraphSetting\GraphSetting\obj\Debug\net8.0\GraphSetting.csproj.CoreCompileInputs.cache
+C:\Users\Ivan\RiderProjects\GraphSetting\GraphSetting\obj\Debug\net8.0\GraphSetting.dll
+C:\Users\Ivan\RiderProjects\GraphSetting\GraphSetting\obj\Debug\net8.0\refint\GraphSetting.dll
+C:\Users\Ivan\RiderProjects\GraphSetting\GraphSetting\obj\Debug\net8.0\GraphSetting.pdb
+C:\Users\Ivan\RiderProjects\GraphSetting\GraphSetting\obj\Debug\net8.0\GraphSetting.genruntimeconfig.cache
+C:\Users\Ivan\RiderProjects\GraphSetting\GraphSetting\obj\Debug\net8.0\ref\GraphSetting.dll
