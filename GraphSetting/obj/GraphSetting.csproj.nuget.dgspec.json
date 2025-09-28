@@ -1,26 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ivan\\RiderProjects\\GraphSetting\\GraphSetting\\GraphSetting.csproj": {}
+    "C:\\Users\\amomomogugus\\RiderProjects\\IntegratedCircuitBoard\\GraphSetting\\GraphSetting.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ivan\\RiderProjects\\GraphSetting\\GraphSetting\\GraphSetting.csproj": {
+    "C:\\Users\\amomomogugus\\RiderProjects\\IntegratedCircuitBoard\\GraphSetting\\GraphSetting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ivan\\RiderProjects\\GraphSetting\\GraphSetting\\GraphSetting.csproj",
+        "projectUniqueName": "C:\\Users\\amomomogugus\\RiderProjects\\IntegratedCircuitBoard\\GraphSetting\\GraphSetting.csproj",
         "projectName": "GraphSetting",
-        "projectPath": "C:\\Users\\Ivan\\RiderProjects\\GraphSetting\\GraphSetting\\GraphSetting.csproj",
-        "packagesPath": "C:\\Users\\Ivan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ivan\\RiderProjects\\GraphSetting\\GraphSetting\\obj\\",
+        "projectPath": "C:\\Users\\amomomogugus\\RiderProjects\\IntegratedCircuitBoard\\GraphSetting\\GraphSetting.csproj",
+        "packagesPath": "C:\\Users\\amomomogugus\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\amomomogugus\\RiderProjects\\IntegratedCircuitBoard\\GraphSetting\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Ivan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\amomomogugus\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.pkg.github.com/Tripledev-ru/index.json": {}
         },
         "frameworks": {
           "net8.0": {
@@ -37,7 +38,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -53,12 +55,30 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.12, 8.0.12]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.12, 8.0.12]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.12, 8.0.12]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.12, 8.0.12]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
