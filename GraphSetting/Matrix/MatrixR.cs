@@ -4,6 +4,9 @@ public class MatrixR
 {
     
     public int[,] R { private set; get; }
+    
+    
+    
     public Dictionary<string, int> ColWeights { private set; get; }
     
     public MatrixR(int sizeX, int sizeY)
