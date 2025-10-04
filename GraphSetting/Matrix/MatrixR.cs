@@ -4,7 +4,6 @@ using GraphSetting.Loaders;
 
 public class MatrixR
 {
-    
     public UniqueElectronicComponents ComponentsManager { get; private set; }
     
     public List<(string, int)> ColWeights { get; private set; }
@@ -48,7 +47,6 @@ public class MatrixR
             int tmpWeight = 0;
             for (int i = 0; i < ComponentsManager.CountUniqueElectronicComponents; i++)
             {
-                
                 tmpWeight += this.ComponentsManager.MatrixR[i, id];
             }
             weights.Add((component, tmpWeight));

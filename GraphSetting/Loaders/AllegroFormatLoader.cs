@@ -9,11 +9,12 @@ public class AllegroFormatLoader(string filepath)
 {
     private string FilePath { get; set; } = filepath ?? throw new ArgumentNullException(nameof(filepath));
     
-    public UniqueElectronicComponents ComponentsManager { get; private set; } = new UniqueElectronicComponents();
+    public UniqueElectronicComponents ComponentsManager { get; private set; } 
+        = new UniqueElectronicComponents();
     
     public async Task FileLoad()
     {
-        await using (FileStream fs = new FileStream(this.FilePath, FileMode.Open))
+        using (FileStream fs = new FileStream(this.FilePath, FileMode.Open))
         {
             byte[] bytes = new byte[fs.Length];
             await fs.ReadAsync(bytes, 0, bytes.Length);
@@ -25,9 +26,14 @@ public class AllegroFormatLoader(string filepath)
             // находит строки типа: N01153;  DD1.1 R3.1 (соединения) с учетом переносов
             foreach (Match m in Regex.Matches(readedNetFile, pattern))
             {
+                // компоненты
                 var group2 = m.Groups[2].Value;
                 List<string> formatedIDs = new List<string>();
-
+                
+                // соединения
+                var group1 = m.Groups[1].Value;
+                this.ComponentsManager.AddNetwork(group1);
+                
                 foreach (var m2 in group2.Split(' '))
                 {
                     if (m2 != "")
@@ -39,7 +45,7 @@ public class AllegroFormatLoader(string filepath)
                         ComponentsManager.AddUniqueElectronicComponent(searched);
                     }
                 }
-
+                
                 foreach (var c1 in formatedIDs)
                 {
                     foreach (var c2 in formatedIDs)
