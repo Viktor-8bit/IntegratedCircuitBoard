@@ -7,7 +7,8 @@ namespace GraphSetting.Loaders;
 
 public class AllegroFormatLoader(string filepath)
 {
-    private string FilePath { get; set; } = filepath ?? throw new ArgumentNullException(nameof(filepath));
+    private string FilePath { get; set; } 
+        = filepath ?? throw new ArgumentNullException(nameof(filepath));
     
     public UniqueElectronicComponents ComponentsManager { get; private set; } 
         = new UniqueElectronicComponents();
@@ -31,8 +32,8 @@ public class AllegroFormatLoader(string filepath)
                 List<string> formatedIDs = new List<string>();
                 
                 // соединения
-                var group1 = m.Groups[1].Value;
-                this.ComponentsManager.AddNetwork(group1);
+                var network = m.Groups[1].Value;
+                this.ComponentsManager.AddNetwork(network);
                 
                 foreach (var m2 in group2.Split(' '))
                 {
@@ -43,6 +44,7 @@ public class AllegroFormatLoader(string filepath)
                             .Split('.')[0];
                         formatedIDs.Add(searched);
                         ComponentsManager.AddUniqueElectronicComponent(searched);
+                        ComponentsManager.AddNetworkConnection(network: network, component: searched);
                     }
                 }
                 

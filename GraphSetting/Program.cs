@@ -21,24 +21,14 @@ var R = new MatrixR(file.ComponentsManager);
 Console.WriteLine("Матрица R");
 R.PrintMatrix();
 
-Console.WriteLine("Веса колонок");
-
+// считаем веса колонок
 R.ComputinColWeights();
 
-foreach (var (name, count) in R.ColWeights.Select(value => (value.Item1, value.Item2)))
-{
-    Console.Write($"{name, 4} - {count}, ");
-}
-Console.WriteLine();
-
-Console.WriteLine("Нетворки");
-foreach (var network in file.ComponentsManager.GetAllNetworks())
-{
-    Console.Write($"{network} ");
-}
-
+Console.WriteLine("Матрица Q");
 // матрица Q
 var Q = new MatrixQ(file.ComponentsManager);
+
+Q.PrintMatrix();
 
 var D = new MatrixD();
 
