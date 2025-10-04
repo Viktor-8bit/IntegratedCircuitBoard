@@ -1,36 +1,58 @@
 namespace GraphSetting.Matrix;
 
+using GraphSetting.Loaders;
+
 public class MatrixR
 {
     
-    public int[,] R { private set; get; }
+    public UniqueElectronicComponents ComponentsManager { get; private set; }
     
+    public List<(string, int)> ColWeights { get; private set; }
     
-    
-    public Dictionary<string, int> ColWeights { private set; get; }
-    
-    public MatrixR(int sizeX, int sizeY)
+    public MatrixR(UniqueElectronicComponents componentsManager)
     {
-        R = new int[sizeX, sizeY];
-        
-        for (int i = 0; i < sizeX; i++)
+        this.ComponentsManager = componentsManager;
+        this.ComponentsManager.MakeRMatrix();
+    }
+
+    public void PrintMatrix()
+    {
+        Console.Write("    ");
+        foreach ( var component in ComponentsManager.GetAllUniqueElectronicComponents())
         {
-            for (int j = 0; j < sizeY; j++)
+            // заголовок
+            Console.Write($"{component, 4}");
+        }
+        Console.Write("\n");
+
+        foreach (var (component, id) in ComponentsManager
+                     .GetAllUniqueElectronicComponents()
+                     .Select((component, index) => (component, index)))
+        {
+            Console.Write($"{component,4}");
+            for (int i = 0; i < ComponentsManager.CountUniqueElectronicComponents; i++)
             {
-                R[i, j] = 0;
+                Console.Write($"{ComponentsManager.MatrixR[id, i],4}");
             }
+
+            Console.Write("\n");
         }
     }
 
-    public void ComputingColWeights() => ColWeights = MatrixSupport.ComputeColWeights(R, "e");
-    public void PrintMatrix() => MatrixSupport.PrintMatrix(R);
-    
-    public void SetWeight(string e1, string e2, int weight)
+    public void ComputinColWeights()
     {
-        int parseE1 = int.Parse(e1.Replace("e", "")) - 1;
-        int parseE2 = int.Parse(e2.Replace("e", "")) - 1;
-        
-        R[parseE1, parseE2] = weight;
-        R[parseE2, parseE1] = weight;
+        List<(string, int)> weights = new List<(string, int)>();
+        foreach (var (component, id) in ComponentsManager
+                     .GetAllUniqueElectronicComponents()
+                     .Select((component, index) => (component, index))) {
+            int tmpWeight = 0;
+            for (int i = 0; i < ComponentsManager.CountUniqueElectronicComponents; i++)
+            {
+                
+                tmpWeight += this.ComponentsManager.MatrixR[i, id];
+            }
+            weights.Add((component, tmpWeight));
+        }
+        this.ColWeights = weights;
     }
 }

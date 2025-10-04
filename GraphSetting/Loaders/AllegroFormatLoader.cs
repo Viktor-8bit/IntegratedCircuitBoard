@@ -1,19 +1,19 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
+
 namespace GraphSetting.Loaders;
 
-public class AllegroFormatLoader
-{
-    public string FilePath { get; private set; }
-    public AllegroFormatLoader(string filepath)
-    {
-        this.FilePath = filepath;
-    }
 
+public class AllegroFormatLoader(string filepath)
+{
+    private string FilePath { get; set; } = filepath ?? throw new ArgumentNullException(nameof(filepath));
+    
+    public UniqueElectronicComponents ComponentsManager { get; private set; } = new UniqueElectronicComponents();
+    
     public async Task FileLoad()
     {
-        using (FileStream fs = new FileStream(this.FilePath, FileMode.Open))
+        await using (FileStream fs = new FileStream(this.FilePath, FileMode.Open))
         {
             byte[] bytes = new byte[fs.Length];
             await fs.ReadAsync(bytes, 0, bytes.Length);
@@ -22,6 +22,7 @@ public class AllegroFormatLoader
             
             string pattern = @"(?ms)(^[A-Za-z0-9]+;)(.*?)(?=^[A-Za-z0-9]+;|\$END|\z)";
             
+            // находит строки типа: N01153;  DD1.1 R3.1 (соединения) с учетом переносов
             foreach (Match m in Regex.Matches(readedNetFile, pattern))
             {
                 var group2 = m.Groups[2].Value;
@@ -35,6 +36,7 @@ public class AllegroFormatLoader
                             .Replace(",", "")
                             .Split('.')[0];
                         formatedIDs.Add(searched);
+                        ComponentsManager.AddUniqueElectronicComponent(searched);
                     }
                 }
 
@@ -44,13 +46,11 @@ public class AllegroFormatLoader
                     {
                         if (c1 != c2)
                         {
-                            //  R.SetWeight(c1, c2, 3);
-                            Console.WriteLine($"{c1} -> {c2}");
+                            this.ComponentsManager.AddElementConnection(c1, c2);
                         }
                     }
                 }
             }
-            
         }
     }
 }

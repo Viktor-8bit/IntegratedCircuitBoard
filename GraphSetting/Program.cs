@@ -1,46 +1,36 @@
 ﻿
 
 
+using System.Diagnostics;
 using GraphSetting.Matrix;
 
 using GraphSetting.Loaders;
 
-var file = new AllegroFormatLoader(@"C:\Users\amomomogugus\RiderProjects\IntegratedCircuitBoard\GraphSetting\CommutationFiles\allegro_1.NET");
+const string fileName = "allegro_1.NET";
+
+Console.WriteLine($"Загружен файл {fileName}");
+var file = new AllegroFormatLoader(@"C:\Users\Ivan\RiderProjects\GraphSetting\GraphSetting\CommutationFiles\" + fileName);
 
 await file.FileLoad();
 
 // Иничиализация матрицы R 
-var R = new MatrixR(4, 4);
+var R = new MatrixR(file.ComponentsManager);
 
-
-
-// добавляем все связи TODO: автоматизировать
-// R.SetWeight("e1", "e2", 2);
-// R.SetWeight("e1", "e3", 1);
-// R.SetWeight("e1", "e4", 3);
-//
-// R.SetWeight("e2", "e3", 4);
-// R.SetWeight("e2", "e4", 2);
-//
-// R.SetWeight("e3", "e4", 1);
-
-// вычисляем веса колонок
-R.ComputingColWeights();
 
 Console.WriteLine("Матрица R");
 R.PrintMatrix();
 
-// проверяем что колонки посчитались верно
-var Rkeys = "";
-var Rvalues = "";
+Console.WriteLine("Веса колонок");
 
-foreach (var r in R.ColWeights.Keys)
+R.ComputinColWeights();
+
+foreach (var (name, count) in R.ColWeights.Select(value => (value.Item1, value.Item2)))
 {
-    Rkeys += r + " ";
-    Rvalues += R.ColWeights[r] + "  ";
+    Console.Write($"{name, 4} - {count}, ");
 }
 
-// пока не трогать 
-// var D = new MatrixD(R);
+// матрица Q
+var Q = new MatrixQ(file.ComponentsManager);
 
+var D = new MatrixD();
 

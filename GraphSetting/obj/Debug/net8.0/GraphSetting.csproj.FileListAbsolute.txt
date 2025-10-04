@@ -27,3 +27,4 @@ C:\Users\amomomogugus\RiderProjects\IntegratedCircuitBoard\GraphSetting\obj\Debu
 C:\Users\amomomogugus\RiderProjects\IntegratedCircuitBoard\GraphSetting\obj\Debug\net8.0\GraphSetting.pdb
 C:\Users\amomomogugus\RiderProjects\IntegratedCircuitBoard\GraphSetting\obj\Debug\net8.0\GraphSetting.genruntimeconfig.cache
 C:\Users\amomomogugus\RiderProjects\IntegratedCircuitBoard\GraphSetting\obj\Debug\net8.0\ref\GraphSetting.dll
+C:\Users\Ivan\RiderProjects\GraphSetting\GraphSetting\obj\Debug\net8.0\GraphSetting.sourcelink.json
