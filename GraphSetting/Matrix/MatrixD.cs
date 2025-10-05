@@ -1,11 +1,17 @@
+
+using GraphSetting.Loaders;
 namespace GraphSetting.Matrix;
 
 public class MatrixD
 {
     
-    public int[,] P;
-    private MatrixR r;
-    public Box box { private set; get; }
-   
+
+    public UniqueElectronicComponents ComonentsManager { get; private set; }
+
+    public MatrixD(UniqueElectronicComponents comonentsManager)
+    {
+        this.ComonentsManager = comonentsManager;
+        
+    }
     
 }

@@ -17,7 +17,7 @@ await file.FileLoad();
 // Иничиализация матрицы R 
 var R = new MatrixR(file.ComponentsManager);
 
-
+// матрица R
 Console.WriteLine("Матрица R");
 R.PrintMatrix();
 
@@ -30,5 +30,8 @@ var Q = new MatrixQ(file.ComponentsManager);
 
 Q.PrintMatrix();
 
-var D = new MatrixD();
+Console.WriteLine("Матрица D");
+
+// матрица D
+var D = new MatrixD(file.ComponentsManager);
 
