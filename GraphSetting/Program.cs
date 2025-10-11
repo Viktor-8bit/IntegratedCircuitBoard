@@ -6,6 +6,8 @@ using GraphSetting.Matrix;
 
 using GraphSetting.Loaders;
 
+
+
 const string fileName = "allegro_1.NET";
 
 Console.WriteLine($"Загружен файл {fileName}");
@@ -18,20 +20,28 @@ await file.FileLoad();
 var R = new MatrixR(file.ComponentsManager);
 
 // матрица R
-Console.WriteLine("Матрица R");
+Console.WriteLine("-Матрица R");
 R.PrintMatrix();
 
 // считаем веса колонок
 R.ComputinColWeights();
 
-Console.WriteLine("Матрица Q");
+/*foreach (var weight in R.ColWeights.OrderBy(weight => weight.Item2).ToList())
+{
+    Console.Write(weight);
+}
+Console.WriteLine();*/
+
+Console.WriteLine("-Матрица Q");
 // матрица Q
 var Q = new MatrixQ(file.ComponentsManager);
 
 Q.PrintMatrix();
 
-Console.WriteLine("Матрица D");
+Console.WriteLine("-Матрица D");
 
 // матрица D
-var D = new MatrixD(file.ComponentsManager);
+var D = new MatrixD(file.ComponentsManager, R);
+
+D.PrintMatrinx();
 
