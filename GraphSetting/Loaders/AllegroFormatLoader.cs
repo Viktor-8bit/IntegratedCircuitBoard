@@ -47,17 +47,22 @@ public class AllegroFormatLoader(string filepath)
                         ComponentsManager.AddNetworkConnection(network: network, component: searched);
                     }
                 }
-                
-                foreach (var c1 in formatedIDs)
+
+                for (int i = 0; i < formatedIDs.Count - 1; i++)
                 {
-                    foreach (var c2 in formatedIDs)
-                    {
-                        if (c1 != c2)
-                        {
-                            this.ComponentsManager.AddElementConnection(c1, c2);
-                        }
-                    }
+                    this.ComponentsManager.AddElementConnection(formatedIDs[i], formatedIDs[i+1]);
                 }
+                
+                // foreach (var c1 in formatedIDs)
+                // {
+                //     foreach (var c2 in formatedIDs)
+                //     {
+                //         if (c1 != c2)
+                //         {
+                //             this.ComponentsManager.AddElementConnection(c1, c2);
+                //         }
+                //     }
+                // }
             }
         }
     }

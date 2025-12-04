@@ -13,6 +13,33 @@ public class MatrixD
     
     public UniqueElectronicComponents ComonentsManager { get; private set; }
     
+    // private static (int rows, int cols) GetClosestMatrixSize(int n)
+    // {
+    //     if (n <= 0)
+    //         throw new ArgumentException("n должно быть положительным числом.");
+    //
+    //     int bestRows = 1;
+    //     int bestCols = n;
+    //     int bestDiff = int.MaxValue;
+    //
+    //     for (int rows = 1; rows <= n; rows++)
+    //     {
+    //         int cols = (int)Math.Ceiling((double)n / rows);
+    //         if (Math.Abs(rows - cols) <= 1)
+    //         {
+    //             int diff = Math.Abs(rows * cols - n);
+    //             if (diff < bestDiff)
+    //             {
+    //                 bestDiff = diff;
+    //                 bestRows = rows;
+    //                 bestCols = cols;
+    //             }
+    //         }
+    //     }
+    //
+    //     return (bestRows, bestCols);
+    // }
+    
     private static (int rows, int cols) GetClosestMatrixSize(int n)
     {
         if (n <= 0)
@@ -25,15 +52,19 @@ public class MatrixD
         for (int rows = 1; rows <= n; rows++)
         {
             int cols = (int)Math.Ceiling((double)n / rows);
-            if (Math.Abs(rows - cols) <= 1)
+
+            // разница между сторонами
+            int shapeDiff = Math.Abs(rows - cols);
+
+            // лишние клетки
+            int diff = rows * cols - n;
+
+            // критерий выбора
+            if (diff >= 0 && shapeDiff < bestDiff)
             {
-                int diff = Math.Abs(rows * cols - n);
-                if (diff < bestDiff)
-                {
-                    bestDiff = diff;
-                    bestRows = rows;
-                    bestCols = cols;
-                }
+                bestDiff = shapeDiff;
+                bestRows = rows;
+                bestCols = cols;
             }
         }
 
