@@ -96,6 +96,7 @@ public class UniqueElectronicComponents
                 var id2 = GetIDbyUniqueElectronicComponent(link.Item2);
                 
                 this.MatrixR[id1, id2] += 1;
+                this.MatrixR[id2, id1] = MatrixR[id1, id2];
             }
         }
     #endregion

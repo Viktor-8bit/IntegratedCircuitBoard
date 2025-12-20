@@ -9,8 +9,6 @@ public class MatrixD
     public (string, int)[,] positionsD;
     private List<(string, (int, int))> PCalcud { get; set; } = new List<(string, (int, int))>();
     
-    public MatrixR matrixR { get; private set; }
-    
     public UniqueElectronicComponents ComonentsManager { get; private set; }
     
     // private static (int rows, int cols) GetClosestMatrixSize(int n)
@@ -71,9 +69,8 @@ public class MatrixD
         return (bestRows, bestCols);
     }
     
-    public MatrixD(UniqueElectronicComponents comonentsManager, MatrixR matrixR)
+    public MatrixD(UniqueElectronicComponents comonentsManager)
     {
-        this.matrixR = matrixR;
         this.ComonentsManager = comonentsManager;
         var componentCount = MatrixD.GetClosestMatrixSize(this.ComonentsManager.CountUniqueElectronicComponents);
         this.positionsD = new (string, int)[componentCount.rows,componentCount.cols];
@@ -152,6 +149,46 @@ public class MatrixD
             }
             Console.WriteLine();
         }
+    }
+    
+    public List<string> GetAllPositions()
+        => this.PCalcud.Select(p => p.Item1).ToList();
+
+    public Vector GetVectorD()
+    {
+        Vector d = new Vector(Order.D);
+
+        int i = 0;
+        int j = this.GetAllPositions().Count;
+
+        while (i < j)
+        {
+            for (int k = i; k < j; k++)
+            {
+                if (k != i)
+                {
+                    var pos1 = this.GetAllPositions()[i];
+                    var pos2 = this.GetAllPositions()[k];
+                
+                    // Console.WriteLine($"{pos1} - {pos2} {CalcDistance(pos1, pos2)}");
+                    d.Buffer.Add(CalcDistance(pos1, pos2));
+                }
+            }
+            i++;
+        }
+        return d;
+    }
+
+    public Vector GetVectorByPosition(string position)
+    {
+        var VbP = new  Vector(Order.D);
+        for (int i = 0; i < this.GetAllPositions().Count; i++)
+        {
+            var otherPos = this.GetAllPositions()[i];
+            if (!otherPos.Equals(position))
+                VbP.Buffer.Add(CalcDistance(otherPos, position));
+        }
+        return VbP;
     }
     
 }

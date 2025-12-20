@@ -1,3 +1,7 @@
+
+
+using GraphSetting.PlacementOptimizerBnb;
+
 namespace GraphSetting.Matrix;
 
 using GraphSetting.Loaders;
@@ -52,5 +56,75 @@ public class MatrixR
             weights.Add((component, tmpWeight));
         }
         this.ColWeights = weights;
+    }
+
+    public Vector GetVectorR()
+    {
+        Vector r = new Vector(Order.R);
+        
+        int i = 0;
+        int j = ComponentsManager.GetAllUniqueElectronicComponents().Count;
+
+        while (i < j)
+        {
+            for (int k = i; k < j; k++)
+            {
+                if (k != i)
+                {
+                    var comp1 = ComponentsManager.GetAllUniqueElectronicComponents()[i];
+                    var comp2 = ComponentsManager.GetAllUniqueElectronicComponents()[k];
+
+                    var comp1Id = ComponentsManager.GetIDbyUniqueElectronicComponent(comp1);
+                    var comp2Id = ComponentsManager.GetIDbyUniqueElectronicComponent(comp2);
+
+                    r.Buffer.Add(ComponentsManager.MatrixR[comp1Id, comp2Id]);
+                }
+            }
+            i++;
+        }
+        return r;
+    }
+    
+    public Vector GetVectorByTranzition(string trnz)
+    {
+        var trnzID = ComponentsManager.GetIDbyUniqueElectronicComponent(trnz);
+        var VbT = new  Vector(Order.R);
+        for (int i = 0; i < ComponentsManager.GetAllUniqueElectronicComponents().Count; i++)
+        {
+            var otherTrnz = ComponentsManager.GetAllUniqueElectronicComponents()[i];
+            if (!otherTrnz.Equals(trnz))
+            {
+                var tmpID = ComponentsManager.GetIDbyUniqueElectronicComponent(otherTrnz);
+                VbT.Buffer.Add(ComponentsManager.MatrixR[tmpID, trnzID]);
+            }
+        }
+        return VbT;
+    }
+
+    public Vector GetVectorWithoutTranzition(string trnz)
+    {
+        Vector r = new Vector(Order.R);
+        
+        int i = 0;
+        int j = ComponentsManager.GetAllUniqueElectronicComponents().Count;
+
+        while (i < j)
+        {
+            for (int k = i; k < j; k++)
+            {
+                if (k != i && (ComponentsManager.GetAllUniqueElectronicComponents()[i] != trnz && ComponentsManager.GetAllUniqueElectronicComponents()[k] != trnz))
+                {
+                    var comp1 = ComponentsManager.GetAllUniqueElectronicComponents()[i];
+                    var comp2 = ComponentsManager.GetAllUniqueElectronicComponents()[k];
+
+                    var comp1Id = ComponentsManager.GetIDbyUniqueElectronicComponent(comp1);
+                    var comp2Id = ComponentsManager.GetIDbyUniqueElectronicComponent(comp2);
+
+                    r.Buffer.Add(ComponentsManager.MatrixR[comp1Id, comp2Id]);
+                }
+            }
+            i++;
+        }
+        return r;
     }
 }
