@@ -1,14 +1,11 @@
 ﻿
 
-
-using System.Diagnostics;
 using GraphSetting.Matrix;
-
 using GraphSetting.Loaders;
 using GraphSetting.PlacementOptimizerBnb;
 
 
-const string fileName = "allegro_111.NET";
+const string fileName = "allegro_2.NET";
 
 Console.WriteLine($"Загружен файл {fileName}");
 var file = new AllegroFormatLoader(@"/Users/ivan/RiderProjects/IntegratedCircuitBoard/GraphSetting/CommutationFiles/" + fileName);
@@ -52,11 +49,8 @@ List<string> tranzistors = compManager.GetAllUniqueElectronicComponents();
 //     Console.Write($"{tranzistor} ");
 // Console.WriteLine();
 
-// конекты
-List<(string, string)> connects = compManager.ElementsConnections;
-
-
 // Границы и ветви
+
 PlacementOptimizerBnb placementOptimizer = new PlacementOptimizerBnb(
     matrixD:     D,
     matrixR:     R,
@@ -68,12 +62,12 @@ PlacementOptimizerBnb placementOptimizer = new PlacementOptimizerBnb(
 // Console.WriteLine();
 
 
-Console.WriteLine("R");
-placementOptimizer.RVector().BufferPrint();
-
-Console.WriteLine("D");
-placementOptimizer.DVector().BufferPrint();
-Console.WriteLine();
+// Console.WriteLine("\nR");
+// placementOptimizer.RVector().BufferPrint();
+//
+// Console.WriteLine("D");
+// placementOptimizer.DVector().BufferPrint();
+// Console.WriteLine();
 
 // Console.WriteLine("RxD");
 // Console.WriteLine($"{placementOptimizer.RVector() * placementOptimizer.DVector()}");
@@ -86,7 +80,8 @@ Console.WriteLine();
 
 // пример данных ("P1", "VD4")
 
-List<(string, string)> Placement = new List<(string, string)>();
+
+List<(string, string)> PlacementToTrnz = new List<(string, string)>();
 List<string> Positions = new List<string>();
 
 for (int i = 1; i <= tranzistors.Count; i++) 
@@ -98,31 +93,52 @@ List<string> sortedTranzistors = R.ColWeights
                                     .Select(i => i.Item1)
                                     .ToList();
 
-string firstTrnz = sortedTranzistors[0];
-
-// Step I
-List<(string, double)> tempPosition = new List<(string, double)>();
-
-foreach (var position in Positions) {
+while (sortedTranzistors.Count > 0)
+{
     
+    string firstTrnz = sortedTranzistors[0];
+    List<(string, double)> tempPosition = new List<(string, double)>();
+
+    foreach (var position in Positions)
+    {
+        double tempResult = 0;
+        
         // TODO: есть проблема с размерностью подложки и транзисторов
         Vector d1 = placementOptimizer.GetVectorByPosition(position);
         Vector r1 = placementOptimizer.GetVectorByTranzition(firstTrnz);
 
         Vector __r = placementOptimizer.GetVectorWithoutTranzition(firstTrnz);
         Vector __d = placementOptimizer.GetVectorWithoutPosition(position);
+
+        tempResult = (d1 * r1) +(__r * __d);
         
-        __r.BufferPrint();
-        __d.BufferPrint();
+        // __r.BufferPrint();
+        // __d.BufferPrint();
+        //
+        // r1.BufferPrint();
+        // d1.BufferPrint();
         
-        tempPosition.Add((position, d1 * r1 + __r * __d));
-        
-        Console.WriteLine($"{firstTrnz} & {position} r1 * d1");
-        Console.WriteLine($"{d1 * r1}");
+        tempPosition.Add((position, tempResult));
+    }
+    
+    
+    sortedTranzistors.RemoveAt(0);
+
+    string positionToPlace = tempPosition.OrderBy(i => i.Item2).First().Item1;
+    Positions.RemoveAt(Positions.IndexOf(positionToPlace));
+    
+    PlacementToTrnz.Add((
+            positionToPlace,
+            firstTrnz
+        )
+    );
 }
 
-// Step II
 
+foreach (var ptz in PlacementToTrnz)
+{
+    Console.Write($"({ptz.Item1} {ptz.Item2}) ");
+}
 
 
 

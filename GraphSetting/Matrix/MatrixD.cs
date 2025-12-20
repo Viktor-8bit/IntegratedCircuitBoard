@@ -3,7 +3,6 @@ using GraphSetting.Loaders;
 namespace GraphSetting.Matrix;
 
 
-
 public class MatrixD
 {
     public (string, int)[,] positionsD;
@@ -65,7 +64,6 @@ public class MatrixD
                 bestCols = cols;
             }
         }
-
         return (bestRows, bestCols);
     }
     
@@ -157,10 +155,8 @@ public class MatrixD
     public Vector GetVectorD()
     {
         Vector d = new Vector(Order.D);
-
         int i = 0;
         int j = this.GetAllPositions().Count;
-
         while (i < j)
         {
             for (int k = i; k < j; k++)
@@ -169,8 +165,6 @@ public class MatrixD
                 {
                     var pos1 = this.GetAllPositions()[i];
                     var pos2 = this.GetAllPositions()[k];
-                
-                    // Console.WriteLine($"{pos1} - {pos2} {CalcDistance(pos1, pos2)}");
                     d.Buffer.Add(CalcDistance(pos1, pos2));
                 }
             }
@@ -189,6 +183,27 @@ public class MatrixD
                 VbP.Buffer.Add(CalcDistance(otherPos, position));
         }
         return VbP;
+    }
+
+    public Vector GetVectorWithoutPosition(string position)
+    {
+        Vector d = new Vector(Order.D);
+        int i = 0;
+        int j = this.GetAllPositions().Count;
+        while (i < j)
+        {
+            for (int k = i; k < j; k++)
+            {
+                if (k != i && (this.GetAllPositions()[i] != position && this.GetAllPositions()[k] != position))
+                {
+                    var pos1 = this.GetAllPositions()[i];
+                    var pos2 = this.GetAllPositions()[k];
+                    d.Buffer.Add(CalcDistance(pos1, pos2));
+                }
+            }
+            i++;
+        }
+        return d;        
     }
     
 }

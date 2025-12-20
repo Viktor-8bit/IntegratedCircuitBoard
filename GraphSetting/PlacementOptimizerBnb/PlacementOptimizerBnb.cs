@@ -29,7 +29,7 @@ public class PlacementOptimizerBnb
         => MatrixR.GetVectorByTranzition(trnz);
 
     public Vector GetVectorWithoutPosition(string position)
-        => throw new NotImplementedException();
+        => MatrixD.GetVectorWithoutPosition(position);
     
     public Vector GetVectorWithoutTranzition(string trnz)
         => MatrixR.GetVectorWithoutTranzition(trnz); 

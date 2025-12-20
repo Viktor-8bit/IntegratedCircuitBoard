@@ -104,10 +104,8 @@ public class MatrixR
     public Vector GetVectorWithoutTranzition(string trnz)
     {
         Vector r = new Vector(Order.R);
-        
         int i = 0;
         int j = ComponentsManager.GetAllUniqueElectronicComponents().Count;
-
         while (i < j)
         {
             for (int k = i; k < j; k++)
